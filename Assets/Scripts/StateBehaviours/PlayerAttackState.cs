@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAttackState : StateMachineBehaviour
 {
-    //ICharacterStateMachine _playerStateMachine;
+    ICharacterStateMachine _playerStateMachine;
     //IDirectionMoverComponent _mover;
     GetAngleBetweenCamCharFaceDirectionAnimatorComponent _angleToCam;
 
@@ -13,9 +13,10 @@ public class PlayerAttackState : StateMachineBehaviour
     //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //_playerStateMachine = animator.GetComponent<ICharacterStateMachine>();
+        _playerStateMachine = animator.GetComponent<ICharacterStateMachine>();
         //_mover = animator.GetComponent<IDirectionMoverComponent>();
         _angleToCam = animator.GetComponent<GetAngleBetweenCamCharFaceDirectionAnimatorComponent>();
+        animator.speed = _playerStateMachine.AttackSpeed;
 
     }
 

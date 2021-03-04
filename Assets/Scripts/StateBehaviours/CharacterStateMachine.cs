@@ -13,11 +13,13 @@ public class CharacterStateMachine : MonoBehaviour, ICharacterStateMachine
     [SerializeField] float arrivingDistance;
     [SerializeField] float distanceThreshold;
     [SerializeField] float attackDistance;
+    [SerializeField] float attackSpeed;
 
 
     public float ArrivingDistance { get { return arrivingDistance; } set { arrivingDistance = value; } }
     public float DistanceThreshold { get { return distanceThreshold; } set { distanceThreshold = value; } }
     public float AttackDistance { get { return attackDistance; } set { attackDistance = value; } }
+    public float AttackSpeed { get { return attackSpeed; } set { attackSpeed = value; } }
 
 
     public CharacterStates CurrentState { get; set; }

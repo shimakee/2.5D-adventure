@@ -53,4 +53,11 @@ public class PlayerIdleState : StateMachineBehaviour
     //{
     //    // Implement code that sets up animation IK (inverse kinematics)
     //}
+
+    private bool CanAttack()
+    {
+        bool isInRange = _distance <= _playerStateMachine.AttackDistance;
+
+        return isInRange;
+    }
 }

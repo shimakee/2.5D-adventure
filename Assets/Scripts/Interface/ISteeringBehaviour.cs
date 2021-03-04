@@ -32,6 +32,7 @@ public interface ICharacterStateMachine
     float ArrivingDistance { get; set; }
     float DistanceThreshold { get; set; }
     float AttackDistance { get; set; }
+    float AttackSpeed { get; set; }
     //attackSpd
     //attackDamage
     //attackRange
