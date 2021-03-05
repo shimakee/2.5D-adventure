@@ -19,6 +19,7 @@ public interface IFieldOfView
 public interface ICharacterStateMachine
 {
     //float ArrivingDistance { get; }
+    //Vector3 Direction { get; set; }
     CharacterStates CurrentState { get; set; }
     GameObject TargetObject { get; }
     Vector3 TargetLocation { get;}

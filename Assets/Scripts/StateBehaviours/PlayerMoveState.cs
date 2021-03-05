@@ -30,7 +30,7 @@ public class PlayerMoveState : StateMachineBehaviour
 
         if(_playerStateMachine.TargetObject != null)
         {
-            if (_playerStateMachine.TargetObject.tag == "Enemy")
+            if (_playerStateMachine.TargetObject.tag == "Enemy" || _playerStateMachine.TargetObject.tag == "Player")
                 _playerStateMachine.SetTargetLocation(_playerStateMachine.TargetObject.transform.position);
         }
 
@@ -55,6 +55,8 @@ public class PlayerMoveState : StateMachineBehaviour
             animator.SetInteger("State", (int)CharacterStates.idle);
             _playerStateMachine.CurrentState = CharacterStates.idle;
         }
+
+        _direction.y = 0;
 
         _mover.MoveDirection(_direction);
 

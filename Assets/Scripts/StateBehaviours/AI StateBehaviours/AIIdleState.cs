@@ -1,33 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class PlayerIdleState : StateMachineBehaviour
+public class AIIdleState : StateMachineBehaviour
 {
-
     ICharacterStateMachine _playerStateMachine;
     IDirectionMoverComponent _mover;
     GetAngleBetweenCamCharFaceDirectionAnimatorComponent _angleToCam;
+    IFieldOfView _fieldOfView;
 
     float _distance;
     float _minDistance;
-    //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+
+    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        _fieldOfView = animator.GetComponent<IFieldOfView>();
         _playerStateMachine = animator.GetComponent<ICharacterStateMachine>();
         _mover = animator.GetComponent<IDirectionMoverComponent>();
         _angleToCam = animator.GetComponent<GetAngleBetweenCamCharFaceDirectionAnimatorComponent>();
 
-        _minDistance = _playerStateMachine.DistanceThreshold + _playerStateMachine.ArrivingDistance;
 
+        _minDistance = _playerStateMachine.DistanceThreshold + _playerStateMachine.ArrivingDistance;
     }
 
-    //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
+    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetFloat("AngleToCamera", _angleToCam.AngledSigned);
 
+        FindTarget();
         _distance = Vector3.Distance(_playerStateMachine.TargetLocation, _mover.CurrentPosition);
+
 
         if (_distance > _minDistance)
         {
@@ -56,10 +61,19 @@ public class PlayerIdleState : StateMachineBehaviour
     //    // Implement code that sets up animation IK (inverse kinematics)
     //}
 
-    private bool CanAttack()
+    private void FindTarget()
     {
-        bool isInRange = _distance <= _playerStateMachine.AttackDistance;
+        if (_fieldOfView.GameObjectsInView.Count > 0)
+        {
+            var target = _fieldOfView.GameObjectsInView.Where(x => x.tag == "Player").FirstOrDefault();
 
-        return isInRange;
+            if (target != null)
+            {
+                if (_playerStateMachine.TargetObject != target)
+                    _playerStateMachine.SetTargetObject(target);
+                else
+                    _playerStateMachine.SetTargetLocation(target.transform.position);
+            }
+        }
     }
 }
