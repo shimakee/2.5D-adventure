@@ -30,7 +30,6 @@ public class CanAttackBehaviour : StateMachineBehaviour
 
             if (_distance <= _playerStateMachine.AttackDistance)
             {
-                _mover.MoveDirection(Vector3.zero);
                 animator.SetInteger("State", (int)CharacterStates.attack);
                 _playerStateMachine.CurrentState = CharacterStates.attack;
             }

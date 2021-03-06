@@ -28,7 +28,6 @@ public class DistanceToDestinationCheckBehaviour : StateMachineBehaviour
         bool isClose = _distance <= _minDistance;
         if (isClose)
         {
-            _mover.MoveDirection(Vector3.zero);
             animator.SetInteger("State", (int)CharacterStates.idle);
             _playerStateMachine.CurrentState = CharacterStates.idle;
         }

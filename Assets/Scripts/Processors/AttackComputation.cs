@@ -24,9 +24,8 @@ public class AttackComputation : MonoBehaviour
 
             if (targetStateMachine != null)
             {
-                target.GetComponent<IDirectionMoverComponent>().MoveDirection(Vector3.zero);
+                //TODO: probably trigger hurt animation on threshold of pain? so that you dont stutter every hit but only the high damage ones.
                 targetAnimator.SetTrigger("Hurt");
-                target.GetComponent<IDirectionMoverComponent>().MoveDirection(Vector3.zero);
             }
         }
     }
