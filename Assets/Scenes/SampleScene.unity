@@ -6328,13 +6328,25 @@ PrefabInstance:
       propertyPath: cameraToGetAngle
       value: 
       objectReference: {fileID: 963194227}
+    - target: {fileID: 6796708995645280719, guid: 9b94358f159778b4190fce0f9cf1a0cb, type: 3}
+      propertyPath: m_Size.x
+      value: 0.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 6796708995645280719, guid: 9b94358f159778b4190fce0f9cf1a0cb, type: 3}
+      propertyPath: m_Size.y
+      value: 0.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 6796708995645280719, guid: 9b94358f159778b4190fce0f9cf1a0cb, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8089633443151901212, guid: 9b94358f159778b4190fce0f9cf1a0cb, type: 3}
       propertyPath: arrivingDistance
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8089633443151901212, guid: 9b94358f159778b4190fce0f9cf1a0cb, type: 3}
       propertyPath: attackSpeed
-      value: 0.5
+      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b94358f159778b4190fce0f9cf1a0cb, type: 3}
@@ -6438,6 +6450,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2144519133588568916, guid: 9b94358f159778b4190fce0f9cf1a0cb, type: 3}
   m_PrefabInstance: {fileID: 1087627902}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1313892741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1313892740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aa80e33ca2de744486de228a83cff28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1420362145
 Mesh:
   m_ObjectHideFlags: 0
@@ -12452,6 +12476,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 33792
   enableDraw: 1
+--- !u!114 &787867043386128117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787867043386128106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aa80e33ca2de744486de228a83cff28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8318546180255048969
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12469,7 +12505,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1448051595247868587, guid: 2716f620f979c234ead3fa9ee791eb8e, type: 3}
       propertyPath: attackSpeed
-      value: 0.5
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 1448051595247868587, guid: 2716f620f979c234ead3fa9ee791eb8e, type: 3}
       propertyPath: attackDistance
