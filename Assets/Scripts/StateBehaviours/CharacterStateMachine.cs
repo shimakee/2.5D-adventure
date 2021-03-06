@@ -58,5 +58,6 @@ public enum CharacterStates
 {
     idle,
     move,
-    attack
+    attack,
+    die
 }

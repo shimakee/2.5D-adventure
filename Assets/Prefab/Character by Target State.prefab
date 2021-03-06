@@ -217,6 +217,7 @@ GameObject:
   - component: {fileID: 8089633443151901212}
   - component: {fileID: 9153855873831450275}
   - component: {fileID: 3307534911977412316}
+  - component: {fileID: 1313892741}
   m_Layer: 15
   m_Name: Character by Target State
   m_TagString: Player
@@ -390,7 +391,7 @@ MonoBehaviour:
   arrivingDistance: 0
   distanceThreshold: 0.2
   attackDistance: 3
-  attackSpeed: 2
+  attackSpeed: 0.7
 --- !u!95 &9153855873831450275
 Animator:
   serializedVersion: 3
@@ -440,6 +441,18 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1313892741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144519133588568916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aa80e33ca2de744486de228a83cff28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2199793705874776173
 GameObject:
   m_ObjectHideFlags: 0

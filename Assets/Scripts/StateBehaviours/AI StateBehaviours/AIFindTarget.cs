@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class AIFindTarget : StateMachineBehaviour
 {
-    ICharacterStateMachine _playerStateMachine;
+    ICharacterStateMachine _characterStateMachine;
     IFieldOfView _fieldOfView;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         _fieldOfView = animator.GetComponent<IFieldOfView>();
-        _playerStateMachine = animator.GetComponent<ICharacterStateMachine>();
+        _characterStateMachine = animator.GetComponent<ICharacterStateMachine>();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -47,8 +47,8 @@ public class AIFindTarget : StateMachineBehaviour
 
             if (target != null)
             {
-                if (_playerStateMachine.TargetObject != target)
-                    _playerStateMachine.SetTargetObject(target);
+                if (_characterStateMachine.TargetObject != target)
+                    _characterStateMachine.SetTargetObject(target);
                 //else
                 //    _playerStateMachine.SetTargetLocation(target.transform.position);
             }
