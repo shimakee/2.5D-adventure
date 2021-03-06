@@ -2,40 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerIdleState : StateMachineBehaviour
+public class TargetLocationUpdateBehaviour : StateMachineBehaviour
 {
-
     ICharacterStateMachine _playerStateMachine;
-    IDirectionMoverComponent _mover;
-    GetAngleBetweenCamCharFaceDirectionAnimatorComponent _angleToCam;
 
-    float _distance;
-    float _minDistance;
-    //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         _playerStateMachine = animator.GetComponent<ICharacterStateMachine>();
-        _mover = animator.GetComponent<IDirectionMoverComponent>();
-        _angleToCam = animator.GetComponent<GetAngleBetweenCamCharFaceDirectionAnimatorComponent>();
-
-        _minDistance = _playerStateMachine.DistanceThreshold + _playerStateMachine.ArrivingDistance;
-
     }
 
-    //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
+    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.SetFloat("AngleToCamera", _angleToCam.AngledSigned);
-
-        _distance = Vector3.Distance(_playerStateMachine.TargetLocation, _mover.CurrentPosition);
-
-        if (_distance > _minDistance)
+        if (_playerStateMachine.TargetObject != null)
         {
-            animator.SetInteger("State", (int)CharacterStates.move);
-            _playerStateMachine.CurrentState = CharacterStates.move;
+            if (_playerStateMachine.TargetObject.tag == "Enemy" || _playerStateMachine.TargetObject.tag == "Player")
+                _playerStateMachine.SetTargetLocation(_playerStateMachine.TargetObject.transform.position);
         }
-        else
-            return;
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
@@ -55,11 +39,4 @@ public class PlayerIdleState : StateMachineBehaviour
     //{
     //    // Implement code that sets up animation IK (inverse kinematics)
     //}
-
-    private bool CanAttack()
-    {
-        bool isInRange = _distance <= _playerStateMachine.AttackDistance;
-
-        return isInRange;
-    }
 }

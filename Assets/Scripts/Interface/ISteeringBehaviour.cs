@@ -40,6 +40,13 @@ public interface ICharacterStateMachine
     //movespeed
 }
 
+
+public interface IAiBehaviour
+{
+    float minIdleTime { get; set; }
+    float maxIdleTime { get; set; }
+}
+
 public interface IAiStateMachine
 {
     IAiState CurrentState { get; }

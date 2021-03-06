@@ -2,35 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttackState : StateMachineBehaviour
+[RequireComponent(typeof(Rigidbody), typeof(IDirectionMoverComponent))]
+public class MoveBehaviour : StateMachineBehaviour
 {
+    [SerializeField] bool enableYDirection;
     ICharacterStateMachine _playerStateMachine;
-    //IDirectionMoverComponent _mover;
-    GetAngleBetweenCamCharFaceDirectionAnimatorComponent _angleToCam;
+    IDirectionMoverComponent _mover;
 
-
+    Vector3 _direction;
 
     //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         _playerStateMachine = animator.GetComponent<ICharacterStateMachine>();
-        //_mover = animator.GetComponent<IDirectionMoverComponent>();
-        _angleToCam = animator.GetComponent<GetAngleBetweenCamCharFaceDirectionAnimatorComponent>();
-        animator.speed = _playerStateMachine.AttackSpeed;
-
+        _mover = animator.GetComponent<IDirectionMoverComponent>();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.SetFloat("AngleToCamera", _angleToCam.AngledSigned);
+        _direction += SteeringBehaviour.Seek(_playerStateMachine.TargetLocation, _mover.CurrentVelocity, _mover) * Time.deltaTime;
+
+        if(!enableYDirection)
+            _direction.y = 0;
+
+        _mover.MoveDirection(_direction);
+
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        animator.SetInteger("State", 0);
-    }
+    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    
+    //}
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
