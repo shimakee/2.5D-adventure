@@ -15,6 +15,9 @@ public class CharacterStateMachine : MonoBehaviour, ICharacterStateMachine
     [SerializeField] float attackDistance;
     [SerializeField] float attackSpeed;
 
+    [Header("Sprite details:")]
+    [SerializeField] Animator spriteAnimator;
+
 
     public float ArrivingDistance { get { return arrivingDistance; } set { arrivingDistance = value; } }
     public float DistanceThreshold { get { return distanceThreshold; } set { distanceThreshold = value; } }
@@ -22,11 +25,14 @@ public class CharacterStateMachine : MonoBehaviour, ICharacterStateMachine
     public float AttackSpeed { get { return attackSpeed; } set { attackSpeed = value; } }
 
 
-    public CharacterStates CurrentState { get; set; }
+    public CharacterStates CurrentState { get { return _currentState; } 
+                                        set { _currentState = value; 
+                                            spriteAnimator.SetInteger("State", (int)value); } }
     public GameObject TargetObject { get; private set; }
     public Vector3 TargetLocation { get; private set; }
 
     Rigidbody _rb;
+    CharacterStates _currentState;
 
     private void Awake()
     {
@@ -34,7 +40,6 @@ public class CharacterStateMachine : MonoBehaviour, ICharacterStateMachine
         position.y = position.y - characterHeight;
         SetTargetLocation(position);
     }
-
 
     public void SetTargetLocation(Vector3 target)
     {
