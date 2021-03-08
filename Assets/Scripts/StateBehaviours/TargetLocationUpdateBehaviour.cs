@@ -17,7 +17,8 @@ public class TargetLocationUpdateBehaviour : StateMachineBehaviour
     {
         if (_playerStateMachine.TargetObject != null)
         {
-            if (_playerStateMachine.TargetObject.tag == "Enemy" || _playerStateMachine.TargetObject.tag == "Player")
+            //still thinking if tag check is appropriate
+            if (_playerStateMachine.TargetObject.tag != "Ground")
                 _playerStateMachine.SetTargetLocation(_playerStateMachine.TargetObject.transform.position);
         }
     }

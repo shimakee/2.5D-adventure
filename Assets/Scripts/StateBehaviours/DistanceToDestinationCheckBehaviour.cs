@@ -28,12 +28,12 @@ public class DistanceToDestinationCheckBehaviour : StateMachineBehaviour
         bool isClose = _distance <= _minDistance;
         if (isClose)
         {
-            animator.SetInteger("State", (int)CharacterStates.idle);
+            //animator.SetInteger("State", (int)CharacterStates.idle);
             _playerStateMachine.CurrentState = CharacterStates.idle;
         }
         else
         {
-            animator.SetInteger("State", (int)CharacterStates.move);
+            //animator.SetInteger("State", (int)CharacterStates.move);
             _playerStateMachine.CurrentState = CharacterStates.move;
         }
     }

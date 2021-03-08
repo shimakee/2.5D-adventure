@@ -32,7 +32,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80545c7fcb66314439469ae07049c00d, type: 3}
   m_Name: 
@@ -83,6 +83,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c334f8b0d82cc6b419d3805ebe4fad9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-6083709019980506367
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5924e6e17f389642b8de01d16edefa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &-5291257983300735002
@@ -163,18 +175,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cded45929b55bde4890939be5ef25603, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-2547095898259209743
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80545c7fcb66314439469ae07049c00d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1102 &-2129898439470033968
@@ -312,25 +312,25 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: AngleToCamera
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Hurt
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Attack
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -358,10 +358,11 @@ AnimatorState:
   - {fileID: -1439013864874930751}
   m_StateMachineBehaviours:
   - {fileID: 8469927270535190427}
+  - {fileID: 3639040643488496110}
   - {fileID: 8449485461008115834}
   - {fileID: -2597191324199076434}
   - {fileID: -783207131641465930}
-  - {fileID: 3639040643488496110}
+  - {fileID: -6083709019980506367}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -390,7 +391,6 @@ AnimatorState:
   - {fileID: 8967871135749014727}
   m_StateMachineBehaviours:
   - {fileID: 6020225590567039952}
-  - {fileID: -2547095898259209743}
   - {fileID: 2532742276131013414}
   - {fileID: -8439736810067328936}
   - {fileID: -5291257983300735002}
@@ -601,7 +601,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80545c7fcb66314439469ae07049c00d, type: 3}
   m_Name: 

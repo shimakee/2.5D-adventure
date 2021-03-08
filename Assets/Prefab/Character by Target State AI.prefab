@@ -92,7 +92,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2081660129103238907}
   - component: {fileID: 4117588574848367615}
-  - component: {fileID: 4867292435953268784}
   - component: {fileID: 7231837078746773941}
   m_Layer: 15
   m_Name: Sprite
@@ -170,25 +169,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &4867292435953268784
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 346073322280054297}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &7231837078746773941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -541,7 +521,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4746724099587533071
 Transform:
   m_ObjectHideFlags: 0
@@ -644,7 +624,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c151c7ab6d5c8134cbddd9f600f1724d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upForceToStep: 70
+  upForce: 15
+  downForce: 15
 --- !u!114 &4555390963179078682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -676,8 +657,9 @@ MonoBehaviour:
   characterHeight: 0
   arrivingDistance: 1
   distanceThreshold: 0.2
-  attackDistance: 1.5
-  attackSpeed: 0.7
+  attackDistance: 5
+  attackSpeed: 1
+  spriteAnimator: {fileID: 1969659540329143828}
 --- !u!95 &1969659540329143828
 Animator:
   serializedVersion: 3

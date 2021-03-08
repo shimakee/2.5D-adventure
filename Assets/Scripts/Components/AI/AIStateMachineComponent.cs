@@ -6,6 +6,8 @@ using UnityEngine;
 public class AIStateMachineComponent : MonoBehaviour, IAiStateMachine
 {
     public IAiState CurrentState { get { return _currentState; } }
+    public GameObject GameObject { get { return this.gameObject; } }
+    public ICharacterStateMachine CharacterStateMachine { get; private set; }
     public IDirectionMoverComponent MoverComponent { get { return _mover; } }
     public IFieldOfView FieldOfViewComponent { get { return _fieldOfView; } }
     public IAiState AttackState { get { return _attackState; } }
@@ -34,6 +36,7 @@ public class AIStateMachineComponent : MonoBehaviour, IAiStateMachine
     {
         _mover = GetComponent<IDirectionMoverComponent>();
         _fieldOfView = GetComponent<IFieldOfView>();
+        CharacterStateMachine = GetComponent<ICharacterStateMachine>();
         _currentState = wanderState;
     }
 

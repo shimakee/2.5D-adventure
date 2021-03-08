@@ -26,6 +26,9 @@ public class CanAttackBehaviour : StateMachineBehaviour
             if (_playerStateMachine.TargetObject.tag != "Enemy" && _playerStateMachine.TargetObject.tag != "Player")
                 return;
 
+            if (_playerStateMachine.TargetObject == animator.gameObject)
+                return;
+
             _distance = Vector3.Distance(_playerStateMachine.TargetLocation, _mover.CurrentPosition);
 
             if (_distance <= _playerStateMachine.AttackDistance)

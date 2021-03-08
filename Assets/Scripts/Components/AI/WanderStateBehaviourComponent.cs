@@ -11,7 +11,6 @@ public class WanderStateBehaviourComponent : IAiState
     [Header("Wandering details:")]
     [Range(-360, 360)] [SerializeField] public float maxDirectionAngleRange;
     [Range(.1f, 20f)] [SerializeField] float radius;
-    //[Range(0, 20f)] [SerializeField] float distanceAheadToCheck;
     [Space(10)]
 
 
@@ -22,92 +21,56 @@ public class WanderStateBehaviourComponent : IAiState
     [Range(0, 20f)] [SerializeField] float maxDistanceAhead;
     [Space(10)]
 
-    [Header("Arriving behaviour details:")]
-    [Range(0, 20f)] [SerializeField] float distancePointToStop;
-    [Range(0, 1)] [SerializeField] float thresholdToZeroVelocity;
-    [Space(10)]
-
     [Header("SpawnPoin details:")]
     [SerializeField] Vector3 spawnPoint;
-    [Range(0, 2)] [SerializeField] float stayNearWeight;
-    [Range(0, 20)] [SerializeField] float minDistanceFromSpawnPoint;
     [Range(0, 20)] [SerializeField] float maxDistanceFromSpawnPoint;
 
 
 
     private float _time;
-    private Vector3 _direction;
     private Vector3 _wanderPoint;
     private float _wanderIntervalTime;
     private float _distanceAhead;
     private float _distanceFromSpawnPoint;
-    //private float _idleIntervalTime;
-    //private float _idleTime;
-    //private int _directionChangeCount;
-    //private int _directionChangeInterval;
 
     public IAiState Execute(IAiStateMachine stateMachine, float deltaTime)
     {
         _time += deltaTime;
-        _distanceFromSpawnPoint = Vector3.Distance(spawnPoint, stateMachine.MoverComponent.CurrentPosition);
 
-
-        var enemies = CheckForEnemies(stateMachine);
-
-        if (enemies != null)
-        {
-            if(enemies.Length > 0)
-                return stateMachine.EngagedState;
-        }
-
-        _direction += Wander(stateMachine.MoverComponent, _wanderIntervalTime) * deltaTime * ComputeWanderWeight(1);
-        _direction += SteeringBehaviour.Seek(spawnPoint,_direction, stateMachine.MoverComponent) * deltaTime * ComputeSeekSpawnPointWeight(stayNearWeight);
-        _direction = SteeringBehaviour.Arriving(stateMachine.MoverComponent, 
-                                                _direction, 
-                                                _wanderPoint, 
-                                                distancePointToStop, 
-                                                thresholdToZeroVelocity);
-
-        stateMachine.MoverComponent.MoveDirection(_direction);
+        if (FindEnemy(stateMachine))
+            Debug.Log("Enemy Found.");
+            //return stateMachine.EngagedState;
+        Wander(stateMachine, _wanderIntervalTime);
+        StayNearSpawnPoint(stateMachine);
 
         return this;
     }
 
-    #region Weighting
-
-    private float ComputeSeekSpawnPointWeight(float weight)
-    {
-        float seekWeight = SteeringBehaviour.ComputeWeightByDistanceFurtherHigher(_distanceFromSpawnPoint, weight, maxDistanceFromSpawnPoint, minDistanceFromSpawnPoint);
-        //float seekWeight = weight * multiplier;
-        return seekWeight;
-    }
-
-    private float ComputeWanderWeight(float weight)
-    {
-        float wanderWeight = SteeringBehaviour.ComputeWeightByDistanceFurtherLower(_distanceFromSpawnPoint, weight,maxDistanceFromSpawnPoint, minDistanceFromSpawnPoint);
-        //float wanderWeight = weight * multiplier;
-        return wanderWeight;
-    }
-
-    #endregion
-
     #region Wander
 
-    private Vector3 Wander(IMoverComponent mover, float interval)
+    private void Wander(IAiStateMachine stateMachine, float interval)
     {
         if (_time > interval)
         {
             _time = 0;
-            //_directionChangeCount++;
-
-            //Debug.Log($"change direction {_directionChangeCount}");
 
             _wanderIntervalTime = UnityEngine.Random.Range(minWanderTimeInterval, maxWanderTimeInterval);
             _distanceAhead = UnityEngine.Random.Range(minDistanceAhead, maxDistanceAhead);
-            _wanderPoint = PickAPointInFront(mover, _distanceAhead, radius, maxDirectionAngleRange);
-        }
+            _wanderPoint = PickAPointInFront(stateMachine.MoverComponent, _distanceAhead, radius, maxDirectionAngleRange);
 
-        return SteeringBehaviour.Seek(_wanderPoint, _direction, mover);
+            stateMachine.CharacterStateMachine.SetTargetLocation(_wanderPoint);
+        }
+    }
+
+    private void StayNearSpawnPoint(IAiStateMachine stateMachine)
+    {
+        _distanceFromSpawnPoint = Vector3.Distance(spawnPoint, stateMachine.MoverComponent.CurrentPosition);
+
+        if(_distanceFromSpawnPoint > maxDistanceFromSpawnPoint)
+        {
+            _wanderPoint = GetPointWithinACircle(spawnPoint, UnityEngine.Random.Range(0, radius), 360);
+            stateMachine.CharacterStateMachine.SetTargetLocation(_wanderPoint);
+        }
     }
 
     private Vector3 PickAPointInFront(IMoverComponent mover, float distanceAhead, float radius, float angle)
@@ -129,54 +92,46 @@ public class WanderStateBehaviourComponent : IAiState
     }
     #endregion
 
-    #region Idle
-
-    //private Vector3 Idle(float deltaTime)
-    //{
-    //    _idleTime += deltaTime;
-
-    //    if (_idleTime > _idleIntervalTime)
-    //    {
-    //        Debug.Log("idle done");
-
-    //        _directionChangeCount = 0;
-    //        _idleTime = 0;
-
-    //        _idleIntervalTime = UnityEngine.Random.Range(minWanderTimeInterval, maxWanderTimeInterval);
-    //        _directionChangeInterval = UnityEngine.Random.Range(minNumberOfDirectionChanges, maxNumberOfDirectionChanges);
-
-    //        //return _direction;
-    //    }
-
-    //    return Vector3.zero;
-    //}
-
-    #endregion
-
     #region Check For Enemies
 
-    private GameObject[] CheckForEnemies(IAiStateMachine stateMachine)
+    private bool FindEnemy(IAiStateMachine stateMachine)
     {
         //visibility Check
         var objectsInView = stateMachine.FieldOfViewComponent.GameObjectsInView;
+
         //check surroundings for enemy target or friendlies
         if (stateMachine.EnemyTags.Length > 0 && objectsInView.Count > 0)
         {
 
             string[] tags = stateMachine.EnemyTags;
-            GameObject[] enemies = objectsInView.Where(item => tags.Contains(item.tag)).ToArray();
+            GameObject[] enemies = objectsInView.Where(enemy => tags.Contains(enemy.tag)).ToArray();
 
-            //first enemy
-            //closest enemy
-            //lowest health enemy
-            return enemies;
+            if (enemies.Length <= 0)
+                return false;
+
+            var priorityEnemy = FindPriorityEnemy(enemies);
+
+            if (priorityEnemy != stateMachine.GameObject && priorityEnemy != stateMachine.CharacterStateMachine.TargetObject)
+            {
+                stateMachine.CharacterStateMachine.SetTargetObject(priorityEnemy);
+                return true;
+            }
         }
-        //if enemy - change to engaged behaviour
-        //if friendly - implement cohesion behaviour?
-        //if neutral - do nothing
 
-        //implement obstacle avoidance
-        return null;
+        return false;
+    }
+
+    private GameObject FindPriorityEnemy(GameObject[] enemies)
+    {
+        if (enemies == null)
+            throw new ArgumentNullException("enemies should not be null.");
+        if (enemies.Length <= 0)
+            throw new ArgumentOutOfRangeException("enemies should be more than 0.");
+
+        //first enemy
+        //closest enemy
+        //lowest health enemy
+        return enemies[0];
     }
     #endregion
 }

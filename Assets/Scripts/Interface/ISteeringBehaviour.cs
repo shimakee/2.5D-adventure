@@ -50,6 +50,8 @@ public interface IAiBehaviour
 public interface IAiStateMachine
 {
     IAiState CurrentState { get; }
+    GameObject GameObject { get; }
+    ICharacterStateMachine CharacterStateMachine { get; }
     IDirectionMoverComponent MoverComponent { get; }
     IFieldOfView FieldOfViewComponent { get; }
 

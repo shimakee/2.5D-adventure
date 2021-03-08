@@ -224,7 +224,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2703116260600496568
 Transform:
   m_ObjectHideFlags: 0
@@ -336,10 +336,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lengthToLower: 0
-  separation: 0.4
+  separation: 0.45
   castDistanceTop: 0.5
   castDistanceBottom: 0.25
-  castDistanceUnder: 0.15
+  castDistanceUnder: 0.1
   angle: 75
   step: 5
   mask:
@@ -358,7 +358,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c151c7ab6d5c8134cbddd9f600f1724d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upForceToStep: 70
+  upForce: 3
+  downForce: 2
 --- !u!114 &6587458332147051693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,7 +392,8 @@ MonoBehaviour:
   arrivingDistance: 0
   distanceThreshold: 0.2
   attackDistance: 3
-  attackSpeed: 0.7
+  attackSpeed: 1.2
+  spriteAnimator: {fileID: 9153855873831450275}
 --- !u!95 &9153855873831450275
 Animator:
   serializedVersion: 3
@@ -823,7 +825,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8700725069557890636}
   - component: {fileID: 6735196463142572872}
-  - component: {fileID: 2869000973268750471}
   - component: {fileID: 1361875202}
   m_Layer: 15
   m_Name: Sprite
@@ -901,25 +902,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &2869000973268750471
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6958582987560732334}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &1361875202
 MonoBehaviour:
   m_ObjectHideFlags: 0
